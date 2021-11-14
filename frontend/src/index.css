@@ -1,0 +1,148 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.nav-bar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 1rem 3rem 1rem 3rem;
+  padding: 10px;
+}
+
+.logo{
+  font-size: 28px;
+  font-weight: bold;
+  color: #bc6c25;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.links{
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  color: #bc6c25;
+  transition: all ease-in .5s;
+}
+
+li{
+  margin-left: 10px;
+  padding: 10px 20px;
+}
+
+.link-button{
+  background-color: #bc6c25;
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all ease-in .5s;
+}
+
+.link-button:hover{
+  background-color: #ffffff;
+  color: #bc6c25;
+  border: 1px solid #bc6c25;
+}
+
+.link{
+  transition: all ease-in .1s;
+}
+
+.link:hover{
+  background-color: #fefae0;
+  color: #bc6c25;
+  padding: 9px 20px;
+  border-bottom: 2px solid #bc6c25;
+}
+
+.toggle > *{
+  height: 5px;
+  width: 100%;
+  background-color: #bc6c25;
+  margin-top: 5px;
+}
+
+.toggle{
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  align-items: center;
+  display: none;
+}
+
+.link-is-open{
+  display: block !important;
+  flex-direction: column;
+  transition: display ease-in .5s ;
+  justify-content: center;
+  background-color: #fefae0;
+  position: relative;
+  top: 50px;
+  width:98%;
+  padding: 20px;
+  border: 2px solid #00ff00;
+}
+
+
+/* Navigation media Query */
+
+  /*mobile*/
+  @media (max-width: 500px) {
+    .links{
+      flex-direction: column;
+      display: none;
+    }
+    .toggle{
+      display: block;
+      border: none;
+    }
+  }
+
+
+  /*Tablet*/
+  @media (min-width: 505px) {
+    .links{
+      list-style-type: none;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: normal;
+      color: #bc6c25;
+      font-size: 15px;
+      transition: all ease-in .5s;
+      border:1px solid red;
+    }
+    li{
+      margin-left: 0px;
+      padding: 5px 10px;
+    }
+    .logo{
+      font-size: 20px;
+      font-weight: bold;
+      color: #bc6c25;
+    }
+
+    .nav-bar{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 1rem ;
+      padding: 8px;
+    }
+  } /*end of tablet breakpoint*/
+
+  @media (min-width: 769px) {
+      .container{
+          width: 50%;
+      }
+      }
