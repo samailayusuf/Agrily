@@ -1,6 +1,6 @@
 import './App.css';
 import Jumbotron from './components/Jumbotron';
-
+import Body from './components/Body'
 import NavBar from './components/NavBar'
 
 function App() {
@@ -8,6 +8,7 @@ function App() {
     <div className="">
      <NavBar/>
      <Jumbotron/>
+     <Body/>
     </div>
   );
 }
