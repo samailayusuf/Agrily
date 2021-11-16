@@ -4,13 +4,14 @@ import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import '../index.css'
 import farmer from '../images/farmer.jpg'
+import farmer2 from '../images/farmer1.jpg'
 
 function Body() {
     return (
         <Container>
             <h3 className="mt-5 text-center Fjalla">Who We Are</h3>
             <Row className="mt-5" style={{color:'#bc6c25'}}>
-                <Col className="">
+                <Col className="" md={6}>
                     <h4 className="Fjalla text-center">We're Farmers' best choice</h4>
                     <p>
                         Agrily provides farmers with a reliable and a trusted platform to 
@@ -23,18 +24,18 @@ function Body() {
 
                     </p>
                 </Col>
-                <Col>
-                    <Image src={farmer} fluid />
+                <Col md={6}>
+                    <Image src={farmer2} fluid />
                 </Col>
                 
             </Row>
 
 
             <Row className="mt-5" style={{color:'#bc6c25'}}>
-                <Col className="" sm={12} md={6}>
+                <Col className="" md={6}>
                     <Image src={farmer} fluid />
                 </Col>
-                <Col sm={12} md={6}>
+                <Col md={6}>
                 <h4 className="Fjalla text-center">Buyers prefer Agrily</h4>
                     <p>
                         Buyers prefer to buy farm produce through Agrily. Getting a high quality produce has never been easier,
