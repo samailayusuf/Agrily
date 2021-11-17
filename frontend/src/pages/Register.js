@@ -10,12 +10,19 @@ function Login() {
         <div>
             <NavBar/>
             <div style={{backgroundImage:`url(${farmer2})`, height:'40vh', marginBottom:'1rem', backgroundSize:'100%'}}></div>
-            <h3 className="text-center">Login </h3>
-            
+            <h3 className="text-center">Sign Up </h3>
             <Container>
             <Row>  <Col md={4}></Col>
             <Col md={4}> 
             <form>
+
+                <Form.Label controlId="Fname" label="Fname" style={{width:'100%'}}>
+                    <Form.Control size="sm" type="text" placeholder="First Name" style={{width:'100%'}}/>
+                </Form.Label> <br/>
+
+                <Form.Label controlId="Lname" label="Lname" style={{width:'100%'}}>
+                    <Form.Control size="sm" type="text" placeholder="Last Name" style={{width:'100%'}}/>
+                </Form.Label> <br/>
 
                 <Form.Label controlId="email" label="email" style={{width:'100%'}}>
                     <Form.Control size="sm" type="email" placeholder="Email" style={{width:'100%'}}/>
@@ -27,10 +34,11 @@ function Login() {
 
                 <Button type="submit" className="mb-2" style={{width:'100%'}}>
                     Submit
-                </Button>
+                </Button> <br/>
 
-                <p>Not registered? <Link to="/register">Sign up here</Link></p>
+                <p>Registered Already? <Link to="/login">Login here</Link></p>
 
+                
                 
                     
             </form>
@@ -40,10 +48,7 @@ function Login() {
             <Col md={4}></Col>
             
             </Row>
-
             </Container>
-
-            
             <Footer/>
         </div>
     )

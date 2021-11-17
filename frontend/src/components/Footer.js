@@ -5,8 +5,10 @@ import Col from 'react-bootstrap/Col'
 function Footer() {
     return (
            
-           <Row className="text-center container p-5" style={{margin:'1px auto'}}>
-               <Col>Agrily &copy; {new Date().getFullYear()}</Col>
+           <Row className="text-center p-2 container-fluid" 
+           style={{margin:'10px auto', position:'absolute', bottom:'0px'}}
+           >
+               <Col lg={12}>Agrily &copy; {new Date().getFullYear()}</Col>
            </Row>
         
     )
