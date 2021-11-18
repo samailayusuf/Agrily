@@ -17,19 +17,23 @@ function Login() {
             <form>
 
                 <Form.Label controlId="Fname" label="Fname" style={{width:'100%'}}>
-                    <Form.Control size="sm" type="text" placeholder="First Name" style={{width:'100%'}}/>
+                    <Form.Control size="sm" type="text" name="firstName" placeholder="First Name" style={{width:'100%'}}/>
                 </Form.Label> <br/>
 
                 <Form.Label controlId="Lname" label="Lname" style={{width:'100%'}}>
-                    <Form.Control size="sm" type="text" placeholder="Last Name" style={{width:'100%'}}/>
+                    <Form.Control size="sm" type="text" name="lastName" placeholder="Last Name" style={{width:'100%'}}/>
                 </Form.Label> <br/>
 
                 <Form.Label controlId="email" label="email" style={{width:'100%'}}>
-                    <Form.Control size="sm" type="email" placeholder="Email" style={{width:'100%'}}/>
+                    <Form.Control size="sm" type="email" name="email" placeholder="Email" style={{width:'100%'}}/>
                 </Form.Label> <br/>
 
-                <Form.Label controlId="floatingPassword" label="Password" style={{width:'100%'}}>
-                    <Form.Control size="sm" type="password" placeholder="Password" style={{width:'100%'}}/>
+                <Form.Label controlId="Password" label="Password" style={{width:'100%'}}>
+                    <Form.Control size="sm" type="password" name="password" placeholder="Password" style={{width:'100%'}}/>
+                </Form.Label> <br/>
+
+                <Form.Label controlId="Password" label="Password" style={{width:'100%'}}>
+                    <Form.Control size="sm" type="password" name="confirmPassword" placeholder="Comfirm Password" style={{width:'100%'}}/>
                 </Form.Label> <br/>
 
                 <Button type="submit" className="mb-2" style={{width:'100%'}}>

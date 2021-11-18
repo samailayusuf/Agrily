@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 //import NavDropdown from 'react-bootstrap/NavDropdown'
 import Button from 'react-bootstrap/Button'
+import {Link} from 'react-router-dom'
 
 function NavBar(){
 
@@ -12,8 +13,10 @@ return (
 
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
     <Container>
-    <Navbar.Brand href="#home" style={{fontWeight:'bold', color:'#bc6c25'}}>Agrily</Navbar.Brand>
-    
+    <Link to="/">
+      <Navbar.Brand href="/" style={{fontWeight:'bold', color:'#bc6c25'}}>Agrily</Navbar.Brand>
+    </Link>
+
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="me-auto">
@@ -28,10 +31,21 @@ return (
         </NavDropdown>*/}
       </Nav>
       <Nav >
-        <Nav.Link href="#deets" style={{marginTop:'5px'}}>Login</Nav.Link>
-        <Nav.Link eventKey={2} href="#memes"> 
-            <Button style={{backgroundColor:'#bc6c25', border:'none', padding:'5px 10px'}}> Sign Up</Button>
+        
+         
+          <Nav.Link style={{marginTop:'5px'}}> 
+          <Link style={{textDecoration:'none', color:'#000'}} to="/login">Login </Link> 
+          </Nav.Link> 
+        
+
+        
+        <Nav.Link > 
+            <Button style={{backgroundColor:'#bc6c25', border:'none', padding:'5px 10px'}}> 
+            <Link style={{textDecoration:'none', color:'#fff'}} to="/register"> Sign Up</Link>
+            </Button>
         </Nav.Link>
+        
+
       </Nav>
     </Navbar.Collapse>
     </Container>
