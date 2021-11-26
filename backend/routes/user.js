@@ -19,14 +19,15 @@ router.post('/api/signup', async (req, res) => {
         firstName,
         lastName,
         email,
-        password
+        passwordHash
     })
 
     const result = await userData.save()
-    const {insertedId} = result
+    const {_id} = result 
 
+    console.log (_id);
     jwt.sign({
-        id: insertedId,
+        id: _id,
         email,
         isVerified: false
     }, process.env.JWT_SECRET,
@@ -35,12 +36,40 @@ router.post('/api/signup', async (req, res) => {
         if(err){
             res.status(500).send()
         }
-        res.status(200).json({token})
+        res.status(200).json({token}) 
     })
 })
 
-router.get('/', (req, res)=>{
-    res.send("Home page oooooooooooo!")
+router.post('/api/login', async(req, res)=>{
+    const {email, password} = req.body
+
+    const user = await User.findOne({email})
+
+    if (!user) return res.sendStatus(401)
+
+    const {_id, isVerified, passwordHash} = user
+
+    console.log(password, passwordHash);
+
+    const isCorrect = await bcrypt.compare(password, passwordHash)
+
+    if(isCorrect){
+        jwt.sign({
+            id: _id,
+            email,
+            isVerified: false
+        }, process.env.JWT_SECRET,
+        {expiresIn:'2d'},
+        (err, token)=>{
+            if(err){
+                res.status(500).json(err)
+            }
+            res.status(200).json({token}) 
+        })
+    }else{
+        res.sendStatus(401)
+    }
+
 })
 
 module.exports = router
