@@ -4,9 +4,15 @@ import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import { Form, Row, Col, Button, Container, Alert } from 'react-bootstrap'
 import farmer2 from '../images/farmer.jpg'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import {useToken} from '../auth/useToken'
+import axios from 'axios'
+
 
 function Login() {
+
+    const [token, setToken] = useToken()
+    const navigate = useNavigate()
 
     const [errorMessage, setErrorMessage] = useState('')
 
@@ -16,9 +22,21 @@ function Login() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    const handleSignUp = e =>{
+    const handleSignUp = (e) =>{
         e.preventDefault()
-        console.log({firstName, lastName, email, password, confirmPassword})
+        axios.post('localhost:5000/api/signup', 
+        {firstName, lastName, email, password})
+        .then((response) =>{
+            const {token} = response.data
+            setToken(token)
+            navigate('/')
+        } )
+        .catch(err=> console.log({Error: err}))
+        
+        // //const {token} = response.data
+        // setToken(token)
+        // navigate('/')
+    
     }
 
     return (

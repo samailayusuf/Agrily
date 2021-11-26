@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 
 router.post('/api/signup', async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     const {firstName, lastName, email, password} = req.body
 
     const user = await User.findOne({email})
@@ -41,6 +42,7 @@ router.post('/api/signup', async (req, res) => {
 })
 
 router.post('/api/login', async(req, res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
     const {email, password} = req.body
 
     const user = await User.findOne({email})
@@ -49,7 +51,7 @@ router.post('/api/login', async(req, res)=>{
 
     const {_id, isVerified, passwordHash} = user
 
-    console.log(password, passwordHash);
+    //console.log(password, passwordHash);
 
     const isCorrect = await bcrypt.compare(password, passwordHash)
 
