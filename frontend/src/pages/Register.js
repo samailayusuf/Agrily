@@ -24,7 +24,7 @@ function Login() {
 
     const handleSignUp = (e) =>{
         e.preventDefault()
-        axios.post('localhost:5000/api/signup', 
+        axios.post('http://localhost:5000/api/signup', 
         {firstName, lastName, email, password})
         .then((response) =>{
             const {token} = response.data
