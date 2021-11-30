@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useToken } from "./useToken";
 
+//Return if user is set
 export const useUser = () =>{
     const[token] = useToken();
 
