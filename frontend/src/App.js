@@ -1,31 +1,24 @@
-import { Fragment } from 'react'
-import Index from './pages/Index'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import NotFound from './pages/NotFound'
-import Home from './pages/Home'
-import { PrivateRoute } from './auth/PrivateRoute'
-import ForgotPassword from './pages/ForgotPassword'
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
-    <>
-      <Routes>
-        <PrivateRoute path="/" exact element={<Home/>}> 
-                
-        </PrivateRoute>
-
-        <Route exact path="/" element={<Index/>} />  
-        <Route path="/login" element={<Login/>} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/forgot-password" element={<ForgotPassword/>} />
-        <Route path="*" element={<NotFound/>} />
-      
-      </Routes>
-      </>
-    </BrowserRouter>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 

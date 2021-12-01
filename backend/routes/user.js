@@ -49,7 +49,7 @@ router.post('/api/login', async(req, res)=>{
 
     if (!user) return res.sendStatus(401)
 
-    const {_id, isVerified, passwordHash} = user
+    const {_id, isVerified, passwordHash} = user;
 
     //console.log(password, passwordHash);
 
