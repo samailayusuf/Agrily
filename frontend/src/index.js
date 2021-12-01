@@ -3,16 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import {BrowserRouter, Routes} from 'react-router-dom'
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     
-      <App />
+      <App/>
       
    
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );
 

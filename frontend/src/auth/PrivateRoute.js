@@ -1,8 +1,15 @@
-import {Route, Navigate} from 'react-router-dom'
+import {Route, Routes, useNavigate} from 'react-router-dom'
+import {useUser} from './useUser'
 
 
 export const PrivateRoute = props =>{
-    const user = null;
+    const user = useUser();
 
-    return user ? <Route {...props} /> : <Navigate to="/index"/>
+    console.log(user)
+    
+    const navigate = useNavigate()
+
+    if(!user) return  navigate('/index')
+
+    return <Routes><Route {...props} /></Routes> 
 }

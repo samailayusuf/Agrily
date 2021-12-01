@@ -13,10 +13,11 @@ function App() {
     <BrowserRouter>
     <>
       <Routes>
-        <Route exact path="/" element={<PrivateRoute/>}>
-          <Route exact path="/" element={<Home/>} />  
-        </Route>
-        <Route path="/index" element={<Index/>}/>
+        <PrivateRoute path="/" exact element={<Home/>}> 
+                
+        </PrivateRoute>
+
+        <Route exact path="/" element={<Index/>} />  
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />

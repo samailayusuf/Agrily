@@ -33,17 +33,17 @@ return (
       <Nav >
         
          
-          <Nav.Link style={{marginTop:'5px'}}> 
+          <div style={{marginTop:'5px'}}> 
           <Link style={{textDecoration:'none', color:'#000'}} to="/login">Login </Link> 
-          </Nav.Link> 
+          </div> 
         
 
         
-        <Nav.Link > 
+        <div > 
             <Button style={{backgroundColor:'#bc6c25', border:'none', padding:'5px 10px'}}> 
             <Link style={{textDecoration:'none', color:'#fff'}} to="/register"> Sign Up</Link>
             </Button>
-        </Nav.Link>
+        </div>
         
 
       </Nav>

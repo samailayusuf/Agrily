@@ -29,7 +29,8 @@ function Login() {
         .then((response) =>{
             const {token} = response.data
             setToken(token)
-            navigate('/')
+            navigate('/home')
+            console.log(token)
         } )
         .catch(err=> console.log({Error: err}))
         
@@ -49,9 +50,7 @@ function Login() {
             <Col md={4}> 
             <form>
                 
-                {errorMessage && (<Alert  variant="warning">
-                    {errorMessage}
-                </Alert>)  
+                {errorMessage && (<Alert  variant="warning"> {errorMessage} </Alert>)  
                 }
 
 
