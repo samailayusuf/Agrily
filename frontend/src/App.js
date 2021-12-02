@@ -12,17 +12,16 @@ function App() {
   return (
     <BrowserRouter>
     <>
-      <Routes>
-        <PrivateRoute path="/" exact element={<Home/>}> 
-                
-        </PrivateRoute>
-
+      <Routes>       
         <Route exact path="/" element={<Index/>} />  
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="*" element={<NotFound/>} />
-      
+        
+        <Route exact path='/home' element={<PrivateRoute/>}>
+            <Route exact path='/home' element={<Home/>}/>
+        </Route>
       </Routes>
       </>
     </BrowserRouter>

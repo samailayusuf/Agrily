@@ -13,8 +13,8 @@ return (
 
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
     <Container>
-    <Link to="/">
-      <Navbar.Brand href="/" style={{fontWeight:'bold', color:'#bc6c25'}}>Agrily</Navbar.Brand>
+    <Link to="/" style={{textDecoration:'none'}}>
+      <Navbar.Brand style={{fontWeight:'bold', color:'#bc6c25', textDecoration:'none'}}>Agrily</Navbar.Brand>
     </Link>
 
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
