@@ -9,5 +9,5 @@ export const PrivateRoute = props =>{
     
     const navigate = useNavigate()
 
-    return user ? <Outlet /> : navigate('/')
+    return ( user ? <Outlet /> : navigate('/') )
 }

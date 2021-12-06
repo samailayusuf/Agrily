@@ -9,7 +9,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
 function App() {
-  return (
+  return(
     <BrowserRouter>
     <>
       <Routes>       

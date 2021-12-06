@@ -24,8 +24,7 @@ function Login() {
 
     const handleSignUp = (e) =>{
         e.preventDefault()
-        axios.post('http://localhost:5000/api/signup', 
-        {firstName, lastName, email, password})
+        axios.post('http://localhost:5000/api/signup', {firstName, lastName, email, password})
         .then((response) =>{
             const {token} = response.data
             setToken(token)
@@ -33,10 +32,6 @@ function Login() {
             console.log(token)
         } )
         .catch(err=> console.log({Error: err}))
-        
-        // //const {token} = response.data
-        // setToken(token)
-        // navigate('/')
     
     }
 
@@ -50,8 +45,7 @@ function Login() {
             <Col md={4}> 
             <form>
                 
-                {errorMessage && (<Alert  variant="warning"> {errorMessage} </Alert>)  
-                }
+                {errorMessage && (<Alert  variant="warning"> {errorMessage} </Alert>) }
 
 
                 <Form.Label controlId="Fname" label="Fname" style={{width:'100%'}}>
@@ -121,7 +115,7 @@ function Login() {
                     Sign Up
                 </Button> <br/>
 
-                <p>Registered Already? <Link to="/login">Login here</Link></p>
+                <p style={{fontSize:'10px'}}>Registered Already? <Link to="/login">Login here</Link></p>
 
                 
                 
