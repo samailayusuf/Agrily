@@ -1,13 +1,20 @@
-import {Route, useNavigate, Outlet} from 'react-router-dom'
+import {useNavigate, Outlet} from 'react-router-dom'
 import {useUser} from './useUser'
 
 
-export const PrivateRoute = props =>{
+export const PrivateRoute = children =>{
     const user = useUser();
 
     //console.log(user)
     
     const navigate = useNavigate()
 
-    return ( user ? <Outlet /> : navigate('/') )
+    if(!user){
+        navigate("/index")
+        window.location = "/index"
+    }else{
+        return <Outlet/>
+    }
+
+    
 }

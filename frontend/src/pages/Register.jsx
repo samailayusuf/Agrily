@@ -2,7 +2,7 @@ import React from 'react'
 import {useState} from 'react'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
-import { Form, Row, Col, Button, Container, Alert } from 'react-bootstrap'
+import { Form, Row, Col, Button, Container, /*Alert*/ } from 'react-bootstrap'
 import farmer2 from '../images/farmer.jpg'
 import {Link, useNavigate} from 'react-router-dom'
 import {useToken} from '../auth/useToken'
@@ -14,7 +14,7 @@ function Login() {
     const [token, setToken] = useToken()
     const navigate = useNavigate()
 
-    const [errorMessage, setErrorMessage] = useState('')
+    //const [errorMessage, setErrorMessage] = useState('')
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -29,7 +29,7 @@ function Login() {
             const {token} = response.data
             setToken(token)
             navigate('/home')
-            console.log(token)
+            console.log(`${token}`)
         } )
         .catch(err=> console.log({Error: err}))
     
@@ -44,8 +44,8 @@ function Login() {
             <Row>  <Col md={4}></Col>
             <Col md={4}> 
             <form>
-                
-                {errorMessage && (<Alert  variant="warning"> {errorMessage} </Alert>) }
+{/*                 
+                {errorMessage && (<Alert  variant="warning"> {errorMessage} </Alert>) } */}
 
 
                 <Form.Label controlId="Fname" label="Fname" style={{width:'100%'}}>
@@ -115,7 +115,7 @@ function Login() {
                     Sign Up
                 </Button> <br/>
 
-                <p style={{fontSize:'10px'}}>Registered Already? <Link to="/login">Login here</Link></p>
+                <p style={{fontSize:'12px'}}>Registered Already? <Link to="/login">Login here</Link></p>
 
                 
                 

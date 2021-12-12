@@ -4,13 +4,13 @@ import {useNavigate} from 'react-router-dom'
 
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
-import { Form, Row, Col, Button, Container, Alert } from 'react-bootstrap'
+import { Form, Row, Col, Button, Container, /*Alert*/ } from 'react-bootstrap'
 import farmer2 from '../images/farmer.jpg'
 import {Link} from 'react-router-dom'
 
 function Login() {
 
-    const [errorMessage, setErrorMessage] = useState('')
+    //const [errorMessage, setErrorMessage] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     
@@ -36,10 +36,10 @@ function Login() {
             <Col md={4}> 
             <form>
 
-                {errorMessage && (<Alert  variant="warning">
+                {/* {errorMessage && (<Alert  variant="warning">
                     {errorMessage}
                 </Alert>)     
-                }
+                } */}
 
                 <Form.Label controlId="email" label="email" style={{width:'100%'}}>
                     <Form.Control 
@@ -81,7 +81,7 @@ function Login() {
                     Forgot Password?
                 </Button>
 
-                <p>Not registered? <Link to="/register">Sign up here</Link></p>
+                <p style={{fontSize:'12px'}}>Not registered? <Link to="/register">Sign up here</Link></p>
 
                 
                     
