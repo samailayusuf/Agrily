@@ -7,8 +7,13 @@ import NavBar from '../components/NavBar'
 import { Form, Row, Col, Button, Container, /*Alert*/ } from 'react-bootstrap'
 import farmer2 from '../images/farmer.jpg'
 import {Link} from 'react-router-dom'
+import axios from 'axios'
+import {useToken} from '../auth/useToken'
+
 
 function Login() {
+
+    const [token, setToken] = useToken()
 
     //const [errorMessage, setErrorMessage] = useState('')
     const [email, setEmail] = useState('')
@@ -18,7 +23,14 @@ function Login() {
 
     const onLogin = async(e) =>{
         e.preventDefault()
-        console.log({email, password})
+        axios.post('http://localhost:5000/api/login', { email, password})
+        .then((response) =>{
+            const {token} = response.data
+            setToken(token)
+            navigate('/home')
+            console.log(`${token}`)
+        } )
+        .catch(err=> console.log({Error: err}))
     }
 
     const forgotPasswordHandler = () =>{
