@@ -28,7 +28,7 @@ function Login() {
         .then((response) =>{
             const {token} = response.data
             setToken(token)
-            navigate('/home')
+            navigate('/verify-email')
             console.log(`${token}`)
         } )
         .catch(err=> {
