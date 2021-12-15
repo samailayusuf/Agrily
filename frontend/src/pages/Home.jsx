@@ -11,7 +11,7 @@ function Home() {
 
     const user = useUser()
     const [token ,setToken] = useToken()
-    const {firstName, lastName, id, email} = user
+    const {firstName, lastName, id, email, isVerified} = user
 
     const logout = () => {
         localStorage.removeItem('token')
@@ -33,10 +33,20 @@ function Home() {
     return (
         <>
             <TopBar logout={logout}/>
-            <h1>Welcome, {firstName}</h1>
-            <h1>Last Name: {lastName}</h1>
-            <h1>Email: {email}</h1>
-            <h2>ID: {id}</h2>
+
+            {isVerified ? 
+            (   <>
+                <h1>Welcome, {firstName}</h1>
+                <h1>Last Name: {lastName}</h1>
+                <h1>Email: {email}</h1>
+                <h2>ID: {id}</h2>
+                </>
+            )
+            :
+            (<h1>please verify your email {firstName}</h1>) 
+            
+            }
+            
         </>
     )
 }

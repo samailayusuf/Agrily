@@ -33,7 +33,7 @@ function Login() {
         } )
         .catch(err=> {
             console.log({Error: err})
-            setErrorMessage({Error:err})
+            setErrorMessage("Something went wrong!")
 
         })
     
