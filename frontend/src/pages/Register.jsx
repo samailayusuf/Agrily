@@ -2,7 +2,7 @@ import React from 'react'
 import {useState} from 'react'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
-import { Form, Row, Col, Button, Container, /*Alert*/ } from 'react-bootstrap'
+import { Form, Row, Col, Button, Container, Alert} from 'react-bootstrap'
 import farmer2 from '../images/farmer.jpg'
 import {Link, useNavigate} from 'react-router-dom'
 import {useToken} from '../auth/useToken'
@@ -14,7 +14,7 @@ function Login() {
     const [token, setToken] = useToken()
     const navigate = useNavigate()
 
-    //const [errorMessage, setErrorMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState(null)
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -31,7 +31,11 @@ function Login() {
             navigate('/home')
             console.log(`${token}`)
         } )
-        .catch(err=> console.log({Error: err}))
+        .catch(err=> {
+            console.log({Error: err})
+            setErrorMessage({Error:err})
+
+        })
     
     }
 
@@ -44,8 +48,8 @@ function Login() {
             <Row>  <Col md={4}></Col>
             <Col md={4}> 
             <form>
-{/*                 
-                {errorMessage && (<Alert  variant="warning"> {errorMessage} </Alert>) } */}
+               
+                { errorMessage && (<Alert  variant="warning"> {errorMessage.Error} </Alert>) }
 
 
                 <Form.Label controlId="Fname" label="Fname" style={{width:'100%'}}>

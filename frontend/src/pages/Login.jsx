@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom'
 
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
-import { Form, Row, Col, Button, Container, /*Alert*/ } from 'react-bootstrap'
+import { Form, Row, Col, Button, Container, Alert } from 'react-bootstrap'
 import farmer2 from '../images/farmer.jpg'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
@@ -15,7 +15,7 @@ function Login() {
 
     const [token, setToken] = useToken()
 
-    //const [errorMessage, setErrorMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState(null)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     
@@ -30,7 +30,11 @@ function Login() {
             navigate('/home')
             console.log(`${token}`)
         } )
-        .catch(err=> console.log({Error: err}))
+        .catch(err=> {
+            setErrorMessage(err)
+            console.log({Error: err})
+    
+        })
     }
 
     const forgotPasswordHandler = () =>{
@@ -48,10 +52,10 @@ function Login() {
             <Col md={4}> 
             <form>
 
-                {/* {errorMessage && (<Alert  variant="warning">
-                    {errorMessage}
+                {errorMessage && (<Alert  variant="warning">
+                    Wrong email or password!
                 </Alert>)     
-                } */}
+                } 
 
                 <Form.Label controlId="email" label="email" style={{width:'100%'}}>
                     <Form.Control 

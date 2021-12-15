@@ -29,6 +29,8 @@ router.post('/api/signup', async (req, res) => {
     console.log (_id);
     jwt.sign({
         id: _id,
+        firstName,
+        lastName,
         email,
         isVerified: false
     }, process.env.JWT_SECRET,
@@ -74,4 +76,4 @@ router.post('/api/login', async(req, res)=>{
 
 })
 
-module.exports = router
+module.exports = router 

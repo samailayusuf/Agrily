@@ -1,13 +1,29 @@
 import React, {useEffect} from 'react'
 import TopBar from '../components/TopBar'
-//import {useNavigate} from 'react-router-dom'
+import {useUser} from '../auth/useUser'
+import {useToken} from '../auth/useToken'
+import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
+
 
 function Home() {
-    const user = localStorage.getItem('token')
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
+
+    const user = useUser()
+    const [token ,setToken] = useToken()
+    const {firstName, lastName, id, email} = user
+
+    const logout = () => {
+        localStorage.removeItem('token')
+        console.log(localStorage.getItem('token'))
+        navigate('/index')
+      }
+
+    //const user = localStorage.getItem('token')
+    
     
     useEffect(()=>{
-        if (user === null) window.location = "/index"
+        if (user === null) navigate('/index')
     }, [user])
 
     //localStorage.removeItem('token')
@@ -16,7 +32,11 @@ function Home() {
     console.log(localStorage.getItem('token'))
     return (
         <>
-            <TopBar />
+            <TopBar logout={logout}/>
+            <h1>Welcome, {firstName}</h1>
+            <h1>Last Name: {lastName}</h1>
+            <h1>Email: {email}</h1>
+            <h2>ID: {id}</h2>
         </>
     )
 }

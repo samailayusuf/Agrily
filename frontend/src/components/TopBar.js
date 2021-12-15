@@ -5,9 +5,7 @@ import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import {Link} from 'react-router-dom'
 
-function NavBar(){
-
-    
+function TopBar(props){    
 
 return (
 
@@ -33,8 +31,8 @@ return (
       <Nav >
         
          
-          <div style={{marginTop:'5px'}}> 
-          <Link style={{textDecoration:'none', color:'#000'}} to="/login">Login </Link> 
+          <div style={{margin:'5px 15px'}} onClick={props.logout}> 
+          <Link style={{textDecoration:'none', color:'#000'}} to="#">Logout </Link> 
           </div> 
         
 
@@ -56,4 +54,4 @@ return (
 
 }
 
-export default NavBar
+export default TopBar
