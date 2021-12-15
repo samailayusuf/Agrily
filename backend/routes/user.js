@@ -4,6 +4,8 @@ const User = require('../models/user')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
+const sendMail = require('../utils/sendMail')
+const { v4: uuidv4 } = require('uuid');
 
 router.post('/api/signup', async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -16,23 +18,36 @@ router.post('/api/signup', async (req, res) => {
     }
     const passwordHash = await bcrypt.hash(password, 10)
 
+    const verificationString = uuidv4()
+
     const userData = new User({
         firstName,
         lastName,
         email,
-        passwordHash
+        passwordHash,
+        isVerified:false,
+        verificationString
     })
 
     const result = await userData.save()
     const {_id} = result 
 
     console.log (_id);
+
+    try{
+        await sendMail(email, verificationString)
+    }catch(e){
+        console.log(e)
+        res.sendStatus(500)
+    }
+
     jwt.sign({
         id: _id,
         firstName,
         lastName,
         email,
-        isVerified: false
+        isVerified: false,
+        verificationString
     }, process.env.JWT_SECRET,
     {expiresIn:'2d'},
     (err, token)=>{
@@ -74,6 +89,11 @@ router.post('/api/login', async(req, res)=>{
         res.sendStatus(401)
     }
 
+})
+
+router.post('/api/mail', (req, res)=>{
+    const mail = sendMail()
+    res.send('OK')
 })
 
 module.exports = router 
