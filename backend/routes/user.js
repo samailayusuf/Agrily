@@ -92,7 +92,7 @@ router.post('/api/login', async(req, res)=>{
 
 })
 
-router.post('/verify', async (req, res) =>{
+router.put('/verify', async (req, res) =>{
     const {verificationString} = req.body
     const result = await User.findOne({verificationString})
 
