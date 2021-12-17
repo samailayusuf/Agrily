@@ -92,7 +92,21 @@ router.post('/api/login', async(req, res)=>{
 
 })
 
-router.put('/verify-email', (req, res) =>{
+router.post('/verify', async (req, res) =>{
+    const {verificationString} = req.body
+    const result = await User.findOne({verificationString})
+
+    if(!result) return res.status(401).json({message:'The email verification code is incorrect!'})
+    const { _id: id, email, isVerified} = result
+
+    await User.updateOne({ _id: _id }, {
+        isVerified: true
+      });
+
+    jwt.sign({id, email, isVerified:true}, process.env.JWT_SECRET, {expiresIn:'2d'}, (err, token) =>{
+        if(err) return res.sendStatus(500)
+        res.status(200).json({token})
+    })
 
 })
 
