@@ -99,7 +99,7 @@ router.put('/verify', async (req, res) =>{
     if(!result) return res.status(401).json({message:'The email verification code is incorrect!'})
     const { _id: id, email, isVerified} = result
 
-    await User.updateOne({ _id: _id }, {
+    await User.updateOne({ _id: id }, {
         isVerified: true
       });
 
@@ -107,6 +107,8 @@ router.put('/verify', async (req, res) =>{
         if(err) return res.sendStatus(500)
         res.status(200).json({token})
     })
+
+    
 
 })
 
