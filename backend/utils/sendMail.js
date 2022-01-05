@@ -19,7 +19,7 @@ function sendMail(email, verificationString){
         text: `
             Thank you for signing up on Agrily!
             Click on the link below to verify your email.
-            https://localhost:5000/verify/${verificationString}
+            https://localhost:3000/verify/${verificationString}
         `
       };
       

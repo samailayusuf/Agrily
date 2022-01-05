@@ -19,7 +19,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
-        <Route path="/verify-email" element={<PleaseVerifyEmailPage/>}/>
+        <Route path="/verify/:verificationString" element={<PleaseVerifyEmailPage/>}/>
         <Route path="*" element={<NotFound/>} />
         
         <Route exact path='/home' element={<PrivateRoute/>}>

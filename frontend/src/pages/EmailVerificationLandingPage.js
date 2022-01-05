@@ -14,7 +14,7 @@ function EmailVerificationLandingPage() {
     useEffect(()=>{
         const loadVerification = async () =>{
             try{
-                const response = await axios.put('http://localhost:5000/verify', {verificationString})
+                const response = await axios.put('localhost:5000/verify', {verificationString})
                 const token = response.token
                 setToken(token)
                 setIsSuccess(true)

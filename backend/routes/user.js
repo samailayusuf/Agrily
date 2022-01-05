@@ -102,7 +102,7 @@ router.put('/verify', async (req, res) =>{
     await User.updateOne({ _id: id }, {
         isVerified: true
       });
-
+ 
     jwt.sign({id, email, isVerified:true}, process.env.JWT_SECRET, {expiresIn:'2d'}, (err, token) =>{
         if(err) return res.sendStatus(500)
         res.status(200).json({token})
