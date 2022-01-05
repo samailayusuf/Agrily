@@ -13,7 +13,7 @@ function sendMail(email, verificationString){
       });
       
       var mailOptions = {
-        from: 'ysdhilside@gmail.com',
+        from: 'ysdhilside@gmail.com' ,
         to: email,
         subject: 'Please verify your email',
         text: `

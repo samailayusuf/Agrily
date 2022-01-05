@@ -5,6 +5,7 @@ import Register from './pages/Register'
 import NotFound from './pages/NotFound'
 import Home from './pages/Home'
 import PleaseVerifyEmailPage from './pages/PleaseVerifyEmailPage'
+import EmailVerificationLandingPage from './pages/EmailVerificationLandingPage'
 import { PrivateRoute } from './auth/PrivateRoute'
 import ForgotPassword from './pages/ForgotPassword'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
@@ -19,7 +20,8 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
-        <Route path="/verify/:verificationString" element={<PleaseVerifyEmailPage/>}/>
+        <Route path="/verify/:verificationString" element={<EmailVerificationLandingPage/>}/>
+        <Route path="/verify-email" element={<PleaseVerifyEmailPage/>}/>
         <Route path="*" element={<NotFound/>} />
         
         <Route exact path='/home' element={<PrivateRoute/>}>

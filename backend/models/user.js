@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
   passwordHash: { type: String, required: true },
   isVerified: {type: Boolean, default: false},
   verificationString: {type: String, required: true}
-});
+} );
 
 //plugging unique validator to user schema
 userSchema.plugin(uniqueValidator);
