@@ -13,16 +13,21 @@ function EmailVerificationLandingPage() {
 
     useEffect(()=>{
         const loadVerification = async () =>{
-            try{
-                const response = await axios.put('http://localhost:5000/verify', {verificationString:verificationString})
-                const {token} = response.data
-                setToken(token)
-                setIsSuccess(true)
-                setIsLoading(false)
-            }catch(error){
+            
+                axios.put('http://localhost:5000/verify', {verificationString})
+                .then(response =>{
+                    const {token} = response.data
+                    setToken(token)
+                    setIsSuccess(true)
+                    setIsLoading(false)
+                    console.log(response)
+                })           
+                .catch(error=>{
                 setIsSuccess(false)
                 setIsLoading(false)
-            }
+                console.log(error)
+                })
+            
 
         }
 
