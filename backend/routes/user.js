@@ -118,6 +118,37 @@ router.put('/verify', async (req, res) =>{
 
 })
 
+
+router.put('/reset', async (req, res) =>{
+    res.header("Access-Control-Allow-Origin", "*");
+    const {email} = req.body
+      
+    if(!verificationString) return res.status(401).json({message:'verification string is empty'})
+
+    const result = await User.findOne({email})
+    console.log(result)
+
+    if(!result) return res.status(401).json({message:'The email verification code is incorrect!'})
+    
+    const { _id: id, email, isVerified} = result
+  
+    await User.updateOne({ _id: id }, {
+        isVerified: true
+      });  
+ 
+    jwt.sign({id, email, isVerified:true}, process.env.JWT_SECRET, {expiresIn:'2d'}, (err, token) =>{
+        if(err) return res.sendStatus(500)
+        res.status(200).json({token})       
+    })
+
+    
+
+})
+
+
+
+
+
 // router.post('/api/mail', (req, res)=>{
 //     const mail = sendMail()
 //     res.send('OK')
