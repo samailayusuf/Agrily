@@ -14,7 +14,7 @@ function Login() {
     const [token, setToken] = useToken()
     const navigate = useNavigate()
 
-    const [errorMessage, setErrorMessage] = useState(null)
+    const [errorMessage, setErrorMessage] = useState("")
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -33,7 +33,7 @@ function Login() {
         } )
         .catch(err=> {
             console.log({Error: err})
-            setErrorMessage("Something went wrong!")
+            setErrorMessage("Sign up failed, user exists!")
 
         })
     
@@ -49,7 +49,7 @@ function Login() {
             <Col md={4}> 
             <form>
                
-                { errorMessage && (<Alert  variant="warning"> {errorMessage.Error} </Alert>) }
+                { errorMessage && (<Alert  variant="warning"> {errorMessage} </Alert>) }
 
 
                 <Form.Label controlId="Fname" label="Fname" style={{width:'100%'}}>

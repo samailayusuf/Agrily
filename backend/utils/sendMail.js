@@ -19,7 +19,7 @@ function sendMail(email, verificationString){
         text: `
             Thank you for signing up on Agrily!
             Click on the link below to verify your email.
-            localhost:3000/verify/${verificationString}
+            http://localhost:3000/verify/${verificationString}
         `
       };
       
@@ -33,4 +33,31 @@ function sendMail(email, verificationString){
       });
 }
 
-module.exports = sendMail
+
+function sendMailFull(destination, subject, text, code){
+  var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.User,
+        pass: process.env.Password
+      }
+    });
+    
+    var mailOptions = {
+      from: 'ysdhilside@gmail.com' ,
+      to: destination,
+      subject,
+      text: text + code,
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+      return info
+    });
+}
+
+module.exports = {sendMail, sendMailFull}

@@ -57,7 +57,7 @@ function Login() {
                 </Alert>)     
                 } 
 
-                <Form.Label controlId="email" label="email" style={{width:'100%'}}>
+                <Form.Label id="email" label="email" style={{width:'100%'}}>
                     <Form.Control 
                         size="sm" 
                         type="email" 
@@ -67,7 +67,7 @@ function Login() {
                         onChange={e=> setEmail(e.target.value)}/>
                 </Form.Label> <br/>
 
-                <Form.Label controlId="floatingPassword" label="Password" style={{width:'100%'}}>
+                <Form.Label id="floatingPassword" label="Password" style={{width:'100%'}}>
                     <Form.Control 
                         size="sm" 
                         type="password" 

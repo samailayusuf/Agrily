@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
 import TopBar from '../components/TopBar'
 import {useUser} from '../auth/useUser'
-import {useToken} from '../auth/useToken'
-import axios from 'axios'
+//import {useToken} from '../auth/useToken'
+//import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 
 
@@ -10,7 +10,7 @@ function Home() {
     const navigate = useNavigate()
 
     const user = useUser()
-    const [token ,setToken] = useToken()
+    //const [token ,setToken] = useToken()
     const {firstName, lastName, id, email, isVerified} = user
 
     const logout = () => {

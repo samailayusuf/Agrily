@@ -8,7 +8,8 @@ const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
   passwordHash: { type: String, required: true },
   isVerified: {type: Boolean, default: false},
-  verificationString: {type: String, required: true}
+  verificationString: {type: String, required: true},
+  passwordResetCode: {type: String},
 } );
 
 //plugging unique validator to user schema
