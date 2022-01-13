@@ -86,27 +86,6 @@ function ResetPassword() {
                 </Button>
 
 
-
-
-                    {/* <input 
-                        type="password"
-                        placeholder="Enter password"
-                        onChange={(e)=>setPasswordValue(e.target.value)}
-                        value={passwordValue}
-                        />
-
-                    <input 
-                        type="password"
-                        placeholder="Confirm password"
-                        onChange={(e)=>setConfirmPasswordValue(e.target.value)}
-                        value={confirmPasswordValue}
-                        />
-
-                    <button
-                        disabled={!passwordValue || !confirmPasswordValue || (passwordValue !==confirmPasswordValue)}
-                        onClick={onResetClicked}
-                        >Reset password</button> */}
-
                     </form>
 
                     
