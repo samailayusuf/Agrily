@@ -156,24 +156,36 @@ router.put('/api/forgot-password/:email', async (req, res) =>{
 
         res.sendStatus(200)
         
+    }   
+
+})
+
+
+router.put('/api/users/:passwordResetCode/reset-password', async (req, res) =>{
+    res.header("Access-Control-Allow-Origin", "*"); 
+
+    try{
+
+        const {passwordResetCode} = req.params
+        const {newPassword} = req.body
+
+        const newPasswordHash = await bcrypt.hash(newPassword, 10)
+        
+
+        const result = await User.updateOne({passwordResetCode}, 
+                                            { passwordHash:newPasswordHash,
+                                            passwordResetCode:''})
+
+        console.log(result)
+
+        if (result.modifiedCount === 0) return res.sendStatus(404)
+
+        res.sendStatus(200)
+
+    }catch(e){
+        res.sendStatus(404) 
     }
-        //     isVerified: true
-        //   });  
-    // if(!verificationString) return res.status(401).json({message:'verification string is empty'})
-
-    // const result = await User.findOne({email})
-    // console.log(result)
-
-    // if(!result) return res.status(401).json({message:'The email verification code is incorrect!'})
     
-    // const { _id: id, email, isVerified} = result
-  
- 
-    // jwt.sign({id, email, isVerified:true}, process.env.JWT_SECRET, {expiresIn:'2d'}, (err, token) =>{
-    //     if(err) return res.sendStatus(500)
-    //     res.status(200).json({token})       
-    // })
-
     
 
 })
