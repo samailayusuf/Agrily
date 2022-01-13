@@ -14,6 +14,12 @@ function ResetPassword() {
 
     const onResetClicked = async(e)=>{
         e.preventDefault()
+        try{
+            await axios.put(`http://localhost:5000/api/users/${resetPasswordCode}/reset-password`, {newPassword: passwordValue})
+            setIsSuccess(true)
+        }catch(error){
+            setIsFail(true)
+        }
     }
 
     console.log(resetPasswordCode)
