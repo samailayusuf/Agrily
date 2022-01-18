@@ -72,7 +72,11 @@ router.post('/api/login', async(req, res)=>{
             res.header("Access-Control-Allow-Origin", "*");
             const {email, password} = req.body
 
+            console.log(req.body)
+
             const user = await User.findOne({email})
+
+            //console.log(user)
 
             if (!user) return res.sendStatus(401)
 
@@ -85,6 +89,8 @@ router.post('/api/login', async(req, res)=>{
             if(isCorrect){
                 jwt.sign({
                     id: _id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
                     email,
                     isVerified,
                 }, process.env.JWT_SECRET,

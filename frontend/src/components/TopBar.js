@@ -4,8 +4,17 @@ import Container from 'react-bootstrap/Container'
 //import NavDropdown from 'react-bootstrap/NavDropdown'
 import Button from 'react-bootstrap/Button'
 import {Link} from 'react-router-dom'
+import {useUser} from '../auth/useUser'
 
 function TopBar(props){    
+
+  const user = useUser()
+
+  const {firstName, lastName, id, email, isVerified} = user
+
+  const initials = firstName.charAt(0) + lastName.charAt(0)
+
+  console.log(user)
 
 return (
 
@@ -38,9 +47,10 @@ return (
 
         
         <div > 
-            <Button style={{backgroundColor:'#bc6c25', border:'none', padding:'5px 10px'}}> 
-            <Link style={{textDecoration:'none', color:'#fff'}} to="/register"> Sign Up</Link>
-            </Button>
+            <div style={{fontSize:22, border:'1px solid black', 
+                        borderRadius:'100%', padding:'3px', 
+                        width:'30px', height:'30px',
+                        display:'flex', justifyContent:'center', alignItems:'center'}}> {initials} </div>
         </div>
         
 
