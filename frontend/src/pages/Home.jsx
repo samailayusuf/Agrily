@@ -7,7 +7,7 @@ import {useNavigate} from 'react-router-dom'
 import './Home.css'
 import { Alert } from 'react-bootstrap'
 import Footer from '../components/Footer'
-import productData from '../data/products'
+//import productData from '../data/products'
 
 
 function Home() {

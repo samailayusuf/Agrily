@@ -4,6 +4,10 @@ import {useParams} from 'react-router-dom'
 import {useToken} from '../auth/useToken'
 import EmailVerificationSuccess from './EmailVerificationSuccess'
 import EmailVerificationFail from './EmailVerificationFail'
+import NavBar from '../components/NavBar'
+import farmer2 from '../images/farmer.jpg'
+import {Container, Row, Col} from 'react-bootstrap'
+import Footer from '../components/Footer'
 
 function EmailVerificationLandingPage() {
     const [isLoading, setIsLoading] = useState(true)
@@ -20,12 +24,12 @@ function EmailVerificationLandingPage() {
                     setToken(token)
                     setIsSuccess(true)
                     setIsLoading(false)
-                    console.log(response)
+                    //console.log(response)
                 })           
                 .catch(error=>{
                 setIsSuccess(false)
                 setIsLoading(false)
-                console.log(error)
+                //console.log(error)
                 })
             
 
@@ -35,9 +39,46 @@ function EmailVerificationLandingPage() {
 
     },[])
 
-    if(isLoading) return <p>Loading...</p>
-    if(!isSuccess) return <EmailVerificationFail/>
-    return <EmailVerificationSuccess/>
+    
+
+
+
+    return(
+        <>
+            <NavBar/>
+            <div style={{backgroundImage:`url(${farmer2})`, height:'40vh', marginBottom:'1rem', backgroundSize:'100%'}}></div>
+
+            <Container>
+                <Row>
+                    <Col md={4}></Col>
+                    
+                    <Col md={4} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                    
+                        { (isLoading) && <p >Loading...</p> }
+                        { (!isSuccess) ? <EmailVerificationFail/> : <EmailVerificationSuccess/> }
+
+                    </Col>
+                     
+                    <Col md={4}></Col>
+                </Row>
+            </Container>
+            <Footer/>
+            
+            
+        </>
+    )
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 export default EmailVerificationLandingPage
