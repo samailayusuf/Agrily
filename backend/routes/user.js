@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const {sendMail, sendMailFull} = require('../utils/sendMail')
 const { v4: uuidv4 } = require('uuid');
-const {ObjectID} = require('mongodb')
+//const {ObjectID} = require('mongodb')
 
 router.post('/api/signup', async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");

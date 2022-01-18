@@ -4,6 +4,10 @@ import {useUser} from '../auth/useUser'
 //import {useToken} from '../auth/useToken'
 //import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+import './Home.css'
+import { Alert } from 'react-bootstrap'
+import Footer from '../components/Footer'
+import productData from '../data/products'
 
 
 function Home() {
@@ -37,16 +41,16 @@ function Home() {
 
             {isVerified ? 
             (   <>
-                <h1>Welcome, {firstName}</h1>
-                <h1>Last Name: {lastName}</h1>
-                <h1>Email: {email}</h1>
-                <h2>ID: {id}</h2>
+                <h3 className='welcome'>Welcome, {firstName}</h3>
                 </>
             )
             :
-            (<h1>please verify your email {firstName}</h1>) 
+            (<Alert className='welcome' variant='danger'>please verify your email {firstName}</Alert>) 
             
             }
+
+
+            <Footer/>
             
         </>
     )
