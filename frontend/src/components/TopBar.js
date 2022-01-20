@@ -14,7 +14,7 @@ function TopBar(props){
 
   const initials = firstName.charAt(0) + lastName.charAt(0)
 
-  console.log(user)
+  //console.log(user)
 
 return (
 
@@ -50,7 +50,8 @@ return (
             <div style={{fontSize:22, border:'1px solid black', 
                         borderRadius:'100%', padding:'3px', 
                         width:'30px', height:'30px',
-                        display:'flex', justifyContent:'center', alignItems:'center'}}> {initials} </div>
+                        display:'flex', justifyContent:'center', alignItems:'center',
+                        backgroundColor:'#000', color:'#fff'}}> {initials} </div>
         </div>
         
 

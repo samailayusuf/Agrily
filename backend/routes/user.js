@@ -139,6 +139,13 @@ router.put('/verify', async (req, res) =>{
 
 
 router.put('/api/forgot-password/:email', async (req, res) =>{
+    
+    try{
+
+    }catch(e){
+
+    }
+
     res.header("Access-Control-Allow-Origin", "*");   
     const {email} = req.params
     console.log(email) 
@@ -156,7 +163,7 @@ router.put('/api/forgot-password/:email', async (req, res) =>{
                                 `To reset your password click this link http://localhost:3000/reset-password/`, 
                                 passwordResetCode)
         }catch(e){
-            console.log(e)
+            //  console.log(e)
             res.sendStatus(500)
         }
 

@@ -28,7 +28,7 @@ function Home() {
     
     useEffect(()=>{
         if (user === null) navigate('/index')
-        console.log(user)
+        //console.log(user)
     }, [user])
 
     //localStorage.removeItem('token')

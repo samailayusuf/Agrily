@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
+require('dotenv/config')
 //Defining middleware responsible for user authentication on 
 //our application
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1]; //get token from request headers
-    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // checking if extracted token is same as defined token
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET); // checking if extracted token is same as defined token
     const userId = decodedToken.userId; //extracting user ID from token
     if (req.body.userId && req.body.userId !== userId) { 
       //checking if user ID from request object 
