@@ -17,6 +17,8 @@ router.post('/products', auth, async (req, res) => {
         
     const {name, quantity, ownerEmail, ownerName, isSold, soldDate, soldTo} = req.body
 
+    console.log(req.body)
+
     }catch(err){
         //res.send(err) 
     }
