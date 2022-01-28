@@ -7,10 +7,12 @@ const productSchema = mongoose.Schema({
   name: {type: String, required: true},
   quantity: {type: Number, required: true},
   imageURL:{type:String, required: true},
-  ownerEmail: { type: String, required: true, unique: true }, //To grab from useUser during data submission
+  ownerEmail: { type: String, required: true, }, //To grab from useUser during data submission
   ownerName: { type: String, required: true }, //To grab from useUser
+  description: {type: String, required: true},
+  price: {type:Number, required:true},
   isSold: {type: Boolean, default: false}, //To assign when payment is made
-  soldDate: {type: Date}, // To assign when payment is made
+  soldDate: {type: String}, // To assign when payment is made
   soldTo:{type: String} //To assign when payment is made
   
 } );
