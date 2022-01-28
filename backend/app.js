@@ -8,7 +8,10 @@ const cors = require('cors')
 app.use(cors())
 
 
+
 const userRouter = require('./routes/user');
+const productRouter = require('./routes/myProducts')
+const auth = require('./middleware/auth')
 
 
 
@@ -37,6 +40,7 @@ app.use((req, res, next) => { //allowing request from any source
 
 
   app.use('/', userRouter); // using userRouter
+  app.use('/', auth, productRouter)
 
 
 
