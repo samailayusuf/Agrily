@@ -98,4 +98,43 @@ const multer = require('../middleware/multer-config')
     })
 
 
+    router.put('/product/:id', multer, (req, res) =>{
+
+        const id = req.params.id;
+
+        const url = req.protocol + '://' + req.get('host');
+    
+        const product = new Product({
+            _id: id,
+            name: req.body.name,
+            quantity: req.body.quantity,
+            imageURL: req.body.imageURL ,//url + '/images/' + req.file.filename,
+            ownerEmail: req.body.ownerEmail,
+            ownerName: req.body.ownerName,
+            description: req.body.description,
+            price: req.body.price,
+            isSold: false,
+            soldDate: req.body.soldDate,
+            soldTo: req.body.soldTo
+            
+        });
+
+        
+        Product.updateOne({_id:id}, product).then(
+        () => {
+        res.status(201).json({
+            message: 'Product Updated successfully!'
+        });
+        }
+    ).catch(
+        (error) => {
+        res.status(400).json({
+            error: error
+        });
+        }
+    );
+
+    })
+
+
 module.exports = router 
