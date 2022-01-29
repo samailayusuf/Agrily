@@ -10,6 +10,7 @@ import { PrivateRoute } from './auth/PrivateRoute'
 import ForgotPassword from './pages/ForgotPassword'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import ResetPassword from './pages/ResetPassword'
+import AddProduct from './pages/AddProduct'
 
 function App() {
   return(
@@ -25,6 +26,8 @@ function App() {
         <Route path="/verify-email" element={<PleaseVerifyEmailPage/>}/>
         <Route path="/reset-password/:resetPasswordCode" element={<ResetPassword/>} />
         <Route path="*" element={<NotFound/>} />
+        <Route path="/add-product" element ={<AddProduct/>}/>
+        
         
         <Route exact path='/home' element={<PrivateRoute/>}>
             <Route exact path='/home' element={<Home/>}/>

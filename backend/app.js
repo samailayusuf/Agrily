@@ -5,6 +5,8 @@ const path = require('path');
 require('dotenv/config')
 //const userRoute = require('./routes/user')
 const cors = require('cors')
+const multer = require('./middleware/multer-config.js')
+
 app.use(cors())
 
 
@@ -40,7 +42,7 @@ app.use((req, res, next) => { //allowing request from any source
 
 
   app.use('/', userRouter); // using userRouter
-  app.use('/', auth, productRouter)
+  app.use('/api/', auth, multer, productRouter)
 
 
 

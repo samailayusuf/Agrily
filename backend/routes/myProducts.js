@@ -8,7 +8,7 @@ const {sendMail, sendMailFull} = require('../utils/sendMail')
 const { v4: uuidv4 } = require('uuid');
 const auth = require('../middleware/auth.js')
 const Product = require('../models/Product')
-const multer = require('../middleware/multer-config')
+const multer = require('../middleware/multer-config.js')
 
     router.get('/products', async (req, res) => {
         
@@ -31,7 +31,7 @@ const multer = require('../middleware/multer-config')
 
         try{
             const id = req.params.id;
-            const product = await Product.findOne({id});
+            const product = await Product.findOne({_id: id});
             //const {name, quantity, ownerEmail, ownerName, isSold, soldDate, soldTo} = req.body
             res.status(200).json(product);
 
@@ -45,38 +45,37 @@ const multer = require('../middleware/multer-config')
 
     router.post('/product', multer, (req, res) =>{
 
-        console.log(req.body)
+        console.log(req.files)
 
         const url = req.protocol + '://' + req.get('host');
     
-        const product = new Product({
-            id: uuidv4(),
-            name: req.body.name,
-            quantity: req.body.quantity,
-            imageURL: req.body.imageURL ,//url + '/images/' + req.file.filename,
-            ownerEmail: req.body.ownerEmail,
-            ownerName: req.body.ownerName,
-            description: req.body.description,
-            price: req.body.price,
-            isSold: false,
-            soldDate: req.body.soldDate,
-            soldTo: req.body.soldTo
+    //     const product = new Product({
+    //         name: req.body.name,
+    //         quantity: req.body.quantity,
+    //         imageURL: url + '/images/' + req.file.filename,
+    //         ownerEmail: req.body.ownerEmail,
+    //         ownerName: req.body.ownerName,
+    //         description: req.body.description,
+    //         price: req.body.price,
+    //         isSold: false,
+    //         soldDate: req.body.soldDate,
+    //         soldTo: req.body.soldTo
             
-        });
+    //     });
 
-    product.save().then(
-        () => {
-        res.status(201).json({
-            message: 'Product saved successfully!'
-        });
-        }
-    ).catch(
-        (error) => {
-        res.status(400).json({
-            error: error
-        });
-        }
-    );
+    // product.save().then(
+    //     () => {
+    //     res.status(201).json({
+    //         message: 'Product saved successfully!'
+    //     });
+    //     }
+    // ).catch(
+    //     (error) => {
+    //     res.status(400).json({
+    //         error: error
+    //     });
+    //     }
+    // );
 
     })
 
@@ -86,7 +85,7 @@ const multer = require('../middleware/multer-config')
     
         try{
             const id = req.params.id;
-            const product = await Product.deleteOne({id});
+            const product = await Product.deleteOne({_id:id});
             //const {name, quantity, ownerEmail, ownerName, isSold, soldDate, soldTo} = req.body
             res.status(200).json({Mesage:'Deleted Successfully!'});
     
@@ -121,17 +120,17 @@ const multer = require('../middleware/multer-config')
 
         
         Product.updateOne({_id:id}, product).then(
-        () => {
-        res.status(201).json({
-            message: 'Product Updated successfully!'
-        });
-        }
-    ).catch(
-        (error) => {
-        res.status(400).json({
-            error: error
-        });
-        }
+            () => {
+            res.status(201).json({
+                message: 'Product Updated successfully!'
+            });
+            }
+            ).catch(
+            (error) => {
+            res.status(400).json({
+                error: error
+            });
+            }
     );
 
     })
