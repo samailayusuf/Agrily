@@ -23,6 +23,9 @@ app.use(express.urlencoded({
 }));
 
 
+app.use(express.static('public'))
+
+
 
 mongoose.connect(process.env.MONGO_URI) //Conecting to mongo DB
   .then(() => {
