@@ -1,14 +1,55 @@
-import axios from 'axios';
+import React, {Component} from 'react'
+import {useState} from 'react'
+import Footer from '../components/Footer'
+import NavBar from '../components/NavBar'
+import { Form, Row, Col, Button, Container, Alert} from 'react-bootstrap'
+import farmer2 from '../images/farmer.jpg'
+import {Link, useNavigate} from 'react-router-dom'
+import {useToken} from '../auth/useToken'
+import axios from 'axios'
+import {useUser} from '../auth/useUser'
+import FormData from 'form-data'
+import TopBar from '../components/TopBar'
 
-import React,{Component} from 'react';
+
+//Getting encoded payload and decoding it
 
 
 class AddProduct extends Component {
 
 	state = {
 	// Initially, no file is selected
-	selectedFile: null
+	selectedFile: null,
+    errorMessage:'',
+    name:'',
+    quantity:'',
+    description:'',
+    price:"",
+    imageURL:'',
+    ownerEmail:'',
+    isSold:false,
+    soldDate:'',
+    soldTo:'',
+    responseData:''
 	};
+
+    
+    componentDidMount(){
+    const encodedPayload = localStorage.getItem('token').split('.')[1];
+    const user = JSON.parse(atob(encodedPayload))
+    this.setState({ownerEmail: user.email})
+    console.log(user)
+    }
+
+    componentWillUnmount(){
+
+    }
+
+    logout = () => {
+        localStorage.removeItem('token')
+        console.log(localStorage.getItem('token'))
+        window.location.href ='/index'
+      }
 	
 	// On file select (from the pop up)
 	onFileChange = event => {
@@ -17,26 +58,36 @@ class AddProduct extends Component {
 	};
 	
 	// On file upload (click the upload button)
-	onFileUpload = () => {
+	handleSubmit = async(event) => {
+
+    const {name, quantity, description, price, ownerEmail, imageURL, isSold, soldDate, soldTo} = this.state
+
+    const errorMessage = typeof price == 'string' ? 
+    (
+        this.setState({errorMessage:'price must be a number '}) 
+    ): ""
+
+    
+
 	// Create an object of formData
-	const formData = new FormData();
-	// Update the formData object
-	formData.append(
-		"image",
-		this.state.selectedFile,
-		this.state.selectedFile.name
-	);
-	
-	// Details of the uploaded file
-	//console.log(this.state.selectedFile);
-	
-	// Request made to the backend api
+    event.preventDefault()
 	// Send formData object
-	axios.post("http://localhost:5000/api/product", formData, {
-        headers:{
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-    });
+    try{    
+        const response = await axios.post("http://localhost:5000/api/product", 
+        {name,quantity,description, price, imageURL, ownerEmail, isSold, soldDate, soldTo}, {
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+
+        response.data && this.setState({responseData: "Product saved successfully!"})
+
+    }catch(error){
+
+    }
+        
+
+
 	};
 	
 	// File content to be displayed after
@@ -47,18 +98,104 @@ class AddProduct extends Component {
 	
 	return (
 		<div>
-			<h1>
-			GeeksforGeeks
-			</h1>
-			<h3>
-			File Upload using React!
-			</h3>
-			<div>
-				<input type="file" onChange={this.onFileChange} name="image" />
-				<button onClick={this.onFileUpload}>
-				Upload!
-				</button>
-			</div>
+            <TopBar logout={this.logout}/>
+			
+
+
+
+
+            <div style={{backgroundImage:`url(${farmer2})`, height:'40vh', marginBottom:'1rem', backgroundSize:'100%'}}></div>
+            <h3 className="text-center">Add Product</h3>
+            <Container>
+            <Row>  <Col md={4}></Col>
+            <Col md={4}> 
+            <form encType="multipart/form-data">
+               
+                { this.state.errorMessage && (<Alert  variant="warning"> {this.state.errorMessage} </Alert>) }
+                { this.state.responseData && (<Alert  variant="warning"> {this.state.responseData} </Alert>) }
+
+
+                <Form.Label id="name" label="name" style={{width:'100%'}}>
+                    <Form.Control 
+                        size="sm" 
+                        type="text" 
+                        name="name" 
+                        placeholder="Product Name" 
+                        style={{width:'100%'}}
+                        value={this.state.name}
+                        onChange={e=>this.setState({[e.target.name] : e.target.value})}/>
+                </Form.Label> <br/>
+
+                <Form.Label id="quantity" label="quantity" style={{width:'100%'}}>
+                    <Form.Control 
+                        size="sm" 
+                        type="number" 
+                        name="quantity" 
+                        placeholder="Enter product quantity" 
+                        style={{width:'100%'}}
+                        value={this.state.quantity}
+                        onChange={e=>this.setState({[e.target.name] : e.target.value})}/>
+                </Form.Label> <br/>
+
+                {/* <Form.Label id="Password" label="Password" style={{width:'100%'}}>
+                    <Form.Control 
+                        size="sm" 
+                        type="file" 
+                        name="image" 
+                        placeholder="Password" 
+                        style={{width:'100%'}}
+                        onChange={this.onFileChange}/>
+                </Form.Label> <br/> */}
+
+                <Form.Label id="Password" label="Password" style={{width:'100%'}}>
+                    <Form.Control 
+                        size="sm" 
+                        type="text" 
+                        name="description" 
+                        placeholder="description" 
+                        style={{width:'100%'}}
+                        value={this.state.description}
+                        onChange={e=>this.setState({[e.target.name] : e.target.value})}/>
+                </Form.Label> <br/>
+
+                <Form.Label id="Password" label="Password" style={{width:'100%'}}>
+                    <Form.Control 
+                        size="sm" 
+                        type="number" 
+                        name="price" 
+                        placeholder="price" 
+                        style={{width:'100%'}}
+                        value={this.state.price}
+                        onChange={e=>this.setState({[e.target.name] : Number(e.target.value)})}/>
+                </Form.Label> <br/>
+
+                <Button 
+                    type="submit" 
+                    className="mb-2" 
+                    style={{width:'100%'}}
+                    onClick={this.handleSubmit}
+                    disabled={
+                        !this.state.name || !this.state.quantity || !this.state.price || !this.state.description
+                    }
+                    >
+                    Sign Up
+                </Button> <br/>
+
+                
+
+                
+                
+                    
+            </form>
+            
+
+            </Col>
+            <Col md={4}></Col>
+            
+            </Row>
+            </Container>
+            <Footer/>
+
 		
 		</div>
 	);
@@ -177,93 +314,93 @@ export default AddProduct;
 //     return (
 //         <div>
 //             <NavBar/>
-//             <div style={{backgroundImage:`url(${farmer2})`, height:'40vh', marginBottom:'1rem', backgroundSize:'100%'}}></div>
-//             <h3 className="text-center">Add Product</h3>
-//             <Container>
-//             <Row>  <Col md={4}></Col>
-//             <Col md={4}> 
-//             <form encType="multipart/form-data">
+            // <div style={{backgroundImage:`url(${farmer2})`, height:'40vh', marginBottom:'1rem', backgroundSize:'100%'}}></div>
+            // <h3 className="text-center">Add Product</h3>
+            // <Container>
+            // <Row>  <Col md={4}></Col>
+            // <Col md={4}> 
+            // <form encType="multipart/form-data">
                
-//                 { errorMessage && (<Alert  variant="warning"> {errorMessage} </Alert>) }
+            //     { errorMessage && (<Alert  variant="warning"> {errorMessage} </Alert>) }
 
 
-//                 <Form.Label id="name" label="name" style={{width:'100%'}}>
-//                     <Form.Control 
-//                         size="sm" 
-//                         type="text" 
-//                         name="name" 
-//                         placeholder="Product Name" 
-//                         style={{width:'100%'}}
-//                         value={name}
-//                         onChange={e=>setName(e.target.value)}/>
-//                 </Form.Label> <br/>
+            //     <Form.Label id="name" label="name" style={{width:'100%'}}>
+            //         <Form.Control 
+            //             size="sm" 
+            //             type="text" 
+            //             name="name" 
+            //             placeholder="Product Name" 
+            //             style={{width:'100%'}}
+            //             value={name}
+            //             onChange={e=>setName(e.target.value)}/>
+            //     </Form.Label> <br/>
 
-//                 <Form.Label id="quantity" label="quantity" style={{width:'100%'}}>
-//                     <Form.Control 
-//                         size="sm" 
-//                         type="number" 
-//                         name="quantity" 
-//                         placeholder="Enter product quantity" 
-//                         style={{width:'100%'}}
-//                         value={quantity}
-//                         onChange={e=>setQuantity(e.target.value)}/>
-//                 </Form.Label> <br/>
+            //     <Form.Label id="quantity" label="quantity" style={{width:'100%'}}>
+            //         <Form.Control 
+            //             size="sm" 
+            //             type="number" 
+            //             name="quantity" 
+            //             placeholder="Enter product quantity" 
+            //             style={{width:'100%'}}
+            //             value={quantity}
+            //             onChange={e=>setQuantity(e.target.value)}/>
+            //     </Form.Label> <br/>
 
-//                 <Form.Label id="Password" label="Password" style={{width:'100%'}}>
-//                     <Form.Control 
-//                         size="sm" 
-//                         type="file" 
-//                         name="image" 
-//                         placeholder="Password" 
-//                         style={{width:'100%'}}
-//                         onChange={(e) => fileChangeHandler(e)}/>
-//                 </Form.Label> <br/>
+            //     <Form.Label id="Password" label="Password" style={{width:'100%'}}>
+            //         <Form.Control 
+            //             size="sm" 
+            //             type="file" 
+            //             name="image" 
+            //             placeholder="Password" 
+            //             style={{width:'100%'}}
+            //             onChange={(e) => fileChangeHandler(e)}/>
+            //     </Form.Label> <br/>
 
-//                 <Form.Label id="Password" label="Password" style={{width:'100%'}}>
-//                     <Form.Control 
-//                         size="sm" 
-//                         type="text" 
-//                         name="description" 
-//                         placeholder="description" 
-//                         style={{width:'100%'}}
-//                         value={description}
-//                         onChange={e=>setDescription(e.target.value)}/>
-//                 </Form.Label> <br/>
+            //     <Form.Label id="Password" label="Password" style={{width:'100%'}}>
+            //         <Form.Control 
+            //             size="sm" 
+            //             type="text" 
+            //             name="description" 
+            //             placeholder="description" 
+            //             style={{width:'100%'}}
+            //             value={description}
+            //             onChange={e=>setDescription(e.target.value)}/>
+            //     </Form.Label> <br/>
 
-//                 <Form.Label id="Password" label="Password" style={{width:'100%'}}>
-//                     <Form.Control 
-//                         size="sm" 
-//                         type="number" 
-//                         name="price" 
-//                         placeholder="price" 
-//                         style={{width:'100%'}}
-//                         value={price}
-//                         onChange={e=>setPrice(e.target.value)}/>
-//                 </Form.Label> <br/>
+            //     <Form.Label id="Password" label="Password" style={{width:'100%'}}>
+            //         <Form.Control 
+            //             size="sm" 
+            //             type="number" 
+            //             name="price" 
+            //             placeholder="price" 
+            //             style={{width:'100%'}}
+            //             value={price}
+            //             onChange={e=>setPrice(e.target.value)}/>
+            //     </Form.Label> <br/>
 
-//                 <Button 
-//                     type="submit" 
-//                     className="mb-2" 
-//                     style={{width:'100%'}}
-//                     onClick={handleSubmit}
-//                     >
-//                     Sign Up
-//                 </Button> <br/>
+            //     <Button 
+            //         type="submit" 
+            //         className="mb-2" 
+            //         style={{width:'100%'}}
+            //         onClick={handleSubmit}
+            //         >
+            //         Sign Up
+            //     </Button> <br/>
 
                 
 
                 
                 
                     
-//             </form>
+            // </form>
             
 
-//             </Col>
-//             <Col md={4}></Col>
+            // </Col>
+            // <Col md={4}></Col>
             
-//             </Row>
-//             </Container>
-//             <Footer/>
+            // </Row>
+            // </Container>
+            // <Footer/>
 //         </div>
 //     )
 // }

@@ -23,7 +23,7 @@ const multer = require('../middleware/multer-config.js')
     })
 
 
-    router.get('/product/:id', async (req, res) => {
+    router.get('/product/:id', async (req, res) => { // Find one product
         
         res.header("Access-Control-Allow-Origin", "*");
 
@@ -41,41 +41,64 @@ const multer = require('../middleware/multer-config.js')
     })
 
 
-    router.post('/product', multer, (req, res) =>{
+    router.get('/products/:email', async (req, res) => { //Get multiple thigs based on email
+        
+        res.header("Access-Control-Allow-Origin", "*");
 
-        console.log(req.file.filename)
+        try{
+            const email = req.params.email;
+            const products = await Product.find({email: email});
+            //const {name, quantity, ownerEmail, ownerName, isSold, soldDate, soldTo} = req.body
+            res.status(200).json(products);
+            console.log(products)
 
-        const url = req.protocol + '://' + req.get('host') + '/images/' +req.file.filename;
+        }catch(err){
+            res.send(err) 
+            console.log(err)
+        }
+        
+    })
 
-        console.log(url)
+
+    router.post('/product', (req, res, next) =>{
+
+        //console.log(req.file.filename)
+        //console.log(JSON.stringify(req.body))
+        
+        console.log(req.body)
+
+
+        //const url = req.protocol + '://' + req.get('host') + '/images/' +req.file.filename;
+
+        //console.log(url)
     
-    //     const product = new Product({
-    //         name: req.body.name,
-    //         quantity: req.body.quantity,
-    //         imageURL: url + '/images/' + req.file.filename,
-    //         ownerEmail: req.body.ownerEmail,
-    //         ownerName: req.body.ownerName,
-    //         description: req.body.description,
-    //         price: req.body.price,
-    //         isSold: false,
-    //         soldDate: req.body.soldDate,
-    //         soldTo: req.body.soldTo
+        const product = new Product({
+            name: req.body.name,
+            quantity: req.body.quantity,
+            imageURL: req.body.imageURL,
+            ownerEmail: req.body.ownerEmail,
+            ownerName: req.body.ownerName,
+            description: req.body.description,
+            price: req.body.price,
+            isSold: false,
+            soldDate: req.body.soldDate,
+            soldTo: req.body.soldTo
             
-    //     });
+        });
 
-    // product.save().then(
-    //     () => {
-    //     res.status(201).json({
-    //         message: 'Product saved successfully!'
-    //     });
-    //     }
-    // ).catch(
-    //     (error) => {
-    //     res.status(400).json({
-    //         error: error
-    //     });
-    //     }
-    // );
+    product.save().then(
+        () => {
+        res.status(201).json({
+            message: 'Product saved successfully!'
+        });
+        }
+    ).catch(
+        (error) => {
+        res.status(400).json({
+            error: error
+        });
+        }
+    );
 
     })
 
