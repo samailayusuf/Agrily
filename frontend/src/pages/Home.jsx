@@ -8,56 +8,61 @@ import './Home.css'
 import { Alert, Row, Col } from 'react-bootstrap'
 import Footer from '../components/Footer'
 import axios from 'axios'
+import ProductList from '../components/ProductList'
+import { useContext } from 'react'
+import { AppContext } from '../state/AppContext'
 //import productData from '../data/products'
 
 
 function Home() {
+
+    const {value} = useContext(AppContext)
+
     const navigate = useNavigate();
     const [moment, setMoment] = useState('');
-    const [products, setProducts] = useState([]);
+    
+    
 
     const user = useUser()
     const [token ,setToken] = useToken()
     const {firstName, lastName, id, email, isVerified} = user
 
+    const [products, setProducts] = useState([]);
+
+    useEffect(()=>{
+
+        if (user === null) navigate('/index')
+        checkTime()
+        
+        setProducts(["this", "that"])
+        console.log(products)
+        // //console.log(user)
+        //       const fetchData = () =>{
+            
+        //         const response =  axios.get(`http://localhost:5000/api/products/${email}`,{
+        //         headers:{
+        //             Authorization: `Bearer ${token}`
+        //         }
+        //         })
+        //         .then(response => console.log(response.data ))//setProducts([...products, response.data]))
+        //         .catch(err => console.log(err))
+             
+        //     console.log(response.data)
+        // }
+
+        // fetchData()
+
+    }, [user])
+
     const logout = () => {
         localStorage.removeItem('token')
-        console.log(localStorage.getItem('token'))
+        //console.log(localStorage.getItem('token'))
         navigate('/index')
       }
 
     
 
     //const user = localStorage.getItem('token')
-    
-    
-    useEffect(()=>{
-        if (user === null) navigate('/index')
-        checkTime()
-        //console.log(user)
-        const fetchData = async() =>{
-            try{
-                const response = await axios.get(`http://localhost:5000/api/products/${email}`,{
-                headers:{
-                    Authorization: `Bearer ${token}`
-                }
-                });
-
-                const data = await response.data
-    
-                if(data){
-                    setProducts(data)
-                    console.log(products)
-                }
-            }catch(error){
-                console.log(error)
-            }
-            
-        }
-
-        fetchData()
-
-    }, [user])
 
 
     const checkTime = () =>{
@@ -76,14 +81,15 @@ function Home() {
     //localStorage.removeItem('token')
     //console.log('token cleared')
 
-    console.log(localStorage.getItem('token'))
+    //console.log(localStorage.getItem('token'))
     return (
         <>
             <TopBar logout={logout}/>
 
             {isVerified ? 
             (   <>
-                <h3 className='welcome text-center'>Good {moment}, {firstName}</h3>
+                <h3 className='welcome text-center'>Good {moment}, {firstName} </h3>
+                <h4>Context: {value}</h4>
                 </>
             )
             :
@@ -99,6 +105,12 @@ function Home() {
                 </Col>
                 <Col className="text-center">
                     <h5>Your listed products</h5>
+                </Col>
+            </Row>
+
+            <Row>
+                <Col>
+                    {/* <ProductList email={user.email}/> */}
                 </Col>
             </Row>
 

@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import Index from './pages/Index'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -11,12 +11,33 @@ import ForgotPassword from './pages/ForgotPassword'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import ResetPassword from './pages/ResetPassword'
 import AddProduct from './pages/AddProduct'
+import { AppContext } from './state/AppContext'
+import useFetch from './hook/useFetch'
+import { useUser } from './auth/useUser'
+import { useToken } from './auth/useToken'
 
 function App() {
+
+  
+
+  const {email} = useUser()
+  const token = useToken()
+
+  const {data, error, isPending} = useFetch(`http://localhost:5000/api/products/${email}`, 
+                  {
+                    headers:{Authorization: `Bearer ${token}`}
+                  });
+
+  const [value, setValue] = useState(data)
+
+  const providerValue = useMemo(()=>({value, setValue}), [value, setValue])
+
   return(
+    <AppContext.Provider value={providerValue}>
     <BrowserRouter>
     <>
       <Routes> 
+      
       <Route exact path="/" element={<Index/>} />      
         <Route path="/index" element={<Index/>} />   
         <Route path="/login" element={<Login/>} />
@@ -32,9 +53,11 @@ function App() {
         <Route exact path='/home' element={<PrivateRoute/>}>
             <Route exact path='/home' element={<Home/>}/>
         </Route>
+       
       </Routes>
       </>
     </BrowserRouter>
+    </AppContext.Provider>
   );
 }
 
